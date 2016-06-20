@@ -1,9 +1,28 @@
-﻿@model VideosDemo.Models.Movies
+﻿@model VideosDemo.ViewModels.RandomMovieViewModel
 @{
     ViewBag.Title = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*
+This is how to type comments inside ASP.net
+*@
+@{
+    var className = Model.Customer.Count > 5 ? "popular" : null;
+}
+<h2>"Random" View!</h2>
+<h2 class="@className">@Model.Movie.Name</h2>
+@if(Model.Customer.Count == 0)
+{
+    <text>Noone has rented this movie yet. </text>
+}
+else
+{
+    <ul>
+        @foreach (var customer in Model.Customer)
+        {
+            <li>@customer.Name</li>
+        }
+    </ul>
+}
 
-<h2>Random</h2>
-<h3>@Model.Name</h3>
 

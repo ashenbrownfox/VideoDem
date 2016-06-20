@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VideosDemo.Models;
+using VideosDemo.ViewModels;
 
 namespace VideosDemo.Controllers
 {
@@ -13,7 +14,20 @@ namespace VideosDemo.Controllers
         public ActionResult Random()
         {
             var movie = new Movies() { Name = "Shrek!" };
-            return View(movie);
+
+            var viewResult = new ViewResult();
+            var customers = new List<Customer>{
+                new Customer {Name = "LeBron"},
+                new Customer {Name = "Durant"}
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customer = customers
+            };
+            //viewResult.ViewData.Model = movie;
+            return View(viewModel);
             //return RedirectToAction("Index", "home", new { page = 1, sortBy = "name" });
         }
         public ActionResult Edit(int id)
@@ -30,6 +44,7 @@ namespace VideosDemo.Controllers
             }
             return Content(String.Format("pageIndex={0}&sortBy = {1}", pageIndex, sortBy));
         }
+        [Route( "movies/released/{year}/{month}")]
 
         public ActionResult ByReleaseYear(int year, int month)
         {
