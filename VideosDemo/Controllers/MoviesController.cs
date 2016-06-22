@@ -13,7 +13,10 @@ namespace VideosDemo.Controllers
         // GET: Movies usually models come from Databases
         public ActionResult Random()
         {
-            var movie = new Movies() { Name = "Shrek!" };
+            var movie = new Movies() 
+            { 
+                Name = "Shrek!" 
+            };
 
             var viewResult = new ViewResult();
             var customers = new List<Customer>{

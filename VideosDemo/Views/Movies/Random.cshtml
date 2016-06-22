@@ -1,6 +1,6 @@
 ﻿@model VideosDemo.ViewModels.RandomMovieViewModel
 @{
-    ViewBag.Title = "Random";
+    ViewBag.Title = "Random Action";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*
@@ -11,18 +11,25 @@ This is how to type comments inside ASP.net
 }
 <h2>"Random" View!</h2>
 <h2 class="@className">@Model.Movie.Name</h2>
-@if(Model.Customer.Count == 0)
-{
-    <text>Noone has rented this movie yet. </text>
-}
-else
-{
-    <ul>
-        @foreach (var customer in Model.Customer)
-        {
-            <li>@customer.Name</li>
-        }
-    </ul>
-}
+<div class="row">
+    List of Customers who have rented @Model.Movie.Name
+
+    @if (Model.Customer.Count == 0)
+    {
+        <text>Noone has rented this movie yet. </text>
+    }
+    else
+    {
+        <ul>
+            @foreach (var customer in Model.Customer)
+            {
+                <li>@customer.Name</li>
+            }
+        </ul>
+    }
+
+
+</div>
+
 
 
