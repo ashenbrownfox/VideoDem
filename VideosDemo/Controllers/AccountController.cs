@@ -95,7 +95,8 @@ namespace VideosDemo.Controllers
 				if (result.Succeeded)
 				{
 					var db = new ApplicationDbContext();
-					var checkingAccount = new CheckingAccount { FirstName = model.FirstName, LastName = model.LastName, AccountNumber = "0000001234", Balance = 0, ApplicationUserId = user.Id };
+					var accountNumber = (12345 + db.CheckingAccount.Count()).ToString().PadLeft(10, '0');
+					var checkingAccount = new CheckingAccount { FirstName = model.FirstName, LastName = model.LastName, AccountNumber = accountNumber, Balance = 0, ApplicationUserId = user.Id };
 					db.CheckingAccount.Add(checkingAccount);
 					db.SaveChanges();
 					await SignInAsync(user, isPersistent: false);
