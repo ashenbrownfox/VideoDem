@@ -30,5 +30,7 @@ namespace VideosDemo.Models
             return new ApplicationDbContext();
         }
         public DbSet<CheckingAccount> CheckingAccount { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

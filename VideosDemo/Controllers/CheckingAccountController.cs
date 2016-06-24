@@ -4,14 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VideosDemo.Models;
+using Microsoft.AspNet.Identity;
 
 namespace VideosDemo.Controllers
 {
     public class CheckingAccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: CheckingAccount
+        [Authorize]
         public ActionResult Index()
         {
+            var userId = User.Identity.GetUserId();
+            var checkingAccountId = db.CheckingAccount.Where(c => c.ApplicationUserId == userId).First().Id;
+            ViewBag.CheckingAccountId = checkingAccountId; 
             return View();
         }
 

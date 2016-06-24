@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using VideosDemo.Models;
+using VideosDemo.Services;
 
 namespace VideosDemo.Controllers
 {
@@ -94,11 +95,9 @@ namespace VideosDemo.Controllers
 				IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
-					var db = new ApplicationDbContext();
-					var accountNumber = (12345 + db.CheckingAccount.Count()).ToString().PadLeft(10, '0');
-					var checkingAccount = new CheckingAccount { FirstName = model.FirstName, LastName = model.LastName, AccountNumber = accountNumber, Balance = 0, ApplicationUserId = user.Id };
-					db.CheckingAccount.Add(checkingAccount);
-					db.SaveChanges();
+					var service = new CheckingAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+					service.CreateCheckingAccount(model.FirstName, model.LastName, user.Id, 0);
+
 					await SignInAsync(user, isPersistent: false);
 
 					// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
