@@ -10,11 +10,29 @@
 
 </head>
 <body>
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '635614939940849',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     @Html.Partial("_NavBar")
     <div class="container body-content">
         <div class="col-md-12">
 
-            <img src="~/Images/Samplelogo.jpg" height="230" class="img-responsive center-block" /> 
+            <img src="~/Content/Images/Samplelogo.jpg" height="230" class="img-responsive center-block" /> 
         </div>
         @RenderBody()
         <hr />
