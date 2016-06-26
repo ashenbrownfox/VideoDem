@@ -95,6 +95,7 @@ namespace VideosDemo.Controllers
 				IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
+					UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, model.FirstName));
 					var service = new CheckingAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
 					service.CreateCheckingAccount(model.FirstName, model.LastName, user.Id, 0);
 
@@ -416,6 +417,9 @@ namespace VideosDemo.Controllers
 					result = await UserManager.AddLoginAsync(user.Id, info.Login);
 					if (result.Succeeded)
 					{
+						var service = new CheckingAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+						service.CreateCheckingAccount("Facebook", "User", user.Id, 500);
+
 						await SignInAsync(user, isPersistent: false);
 						
 						// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
