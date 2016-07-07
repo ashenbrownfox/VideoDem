@@ -24,14 +24,21 @@ namespace VideosDemo.Controllers
         // GET: CheckingAccount/Details/
         public ActionResult Details()
         {
-            var checkingAccount = new CheckingAccount
-            {
-                AccountNumber = "0000123456",
-                FirstName = "Ailun",
-                LastName = "Shen",
-                Balance = 1000
-            };
+            var userId = User.Identity.GetUserId();
+            var checkingAccount = db.CheckingAccount.Where(c => c.ApplicationUserId == userId).First();
             return View(checkingAccount);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult DetailsForAdmin(int id)
+        {
+            var checkingAccount = db.CheckingAccount.Find(id);
+            return View("Details",checkingAccount);
+        }
+
+        public ActionResult List()
+        {
+            return View(db.CheckingAccount.ToList());
         }
 
         // GET: CheckingAccount/Create

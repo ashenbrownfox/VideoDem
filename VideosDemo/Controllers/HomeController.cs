@@ -20,7 +20,7 @@ namespace VideosDemo.Controllers
             //ViewBag.CheckingAccountId = checkingAccountId;
             var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var user = manager.FindById(userId);
-            //ViewBag.Pin = 
+            //ViewBag.Pin = user.Pin;
             return View();
         }
         public ActionResult About()
